@@ -17,7 +17,6 @@ This automatically closes programs off a list. Meant to enforce on those without
 
 <br />
 It includes the code for a systemd daemon, a CLI interface, and a GUI interface using wxWidgets.
-![UVS Preview](./Images/preview.png)
 
 <h2>Setup</h2>
 Download the source code, then run "sudo ./install.sh" in the folder to install the CLI interface and the daemon. 
