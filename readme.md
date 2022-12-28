@@ -26,5 +26,10 @@ Additionally, you can run "sudo ./install.sh" in the GUI folder to install the G
 <h2>Usage</h2>
 Use with the CLI using parentalctl, use with the GUI using parentalgui. The service name is "parentald.service".
 
+parentalctl disable/enable - Toggle whether the daemon should start activated
+parentalctl start/stop - Toggle whether or not the daemon will currently enforce
+parentalctl show - Display the list of programs to kill
+parentalctl add [program]... - Add program(s) to the list (path or name)
+parentalctl remove [program]... - Remove the following program(s) from the list
 <br /><br />
 <h3>Anyone is free to use, copy, modify, merge, publish, distribute, sublicense, or and/or sell copies of the software.</h3>
