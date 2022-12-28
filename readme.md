@@ -32,4 +32,4 @@ parentalctl show - Display the list of programs to kill<br />
 parentalctl add [program]... - Add program(s) to the list (path or name)<br />
 parentalctl remove [program]... - Remove the following program(s) from the list<br />
 <br /><br />
-<h3>Anyone is free to use, copy, modify, merge, publish, distribute, sublicense, or and/or sell copies of the software.</h3>
+<h3>Anyone is free to use, copy, modify, merge, publish, distribute, sublicense, or and/or sell copies of the software*.</h3>
