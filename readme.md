@@ -7,11 +7,9 @@
 
 ![GitHub forks](https://img.shields.io/github/forks/Techiesplash/ParentalControls)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Techiesplash/ParentalControls)
-![GitHub all releases](https://img.shields.io/github/downloads/Techiesplash/ParentalControls/total)
 ![GitHub issues](https://img.shields.io/github/issues/Techiesplash/ParentalControls)
 
 ![GitHub](https://img.shields.io/github/license/Techiesplash/ParentalControls)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Techiesplash/ParentalControls)
 
 <h2>Introduction</h2>
 I made this project, as I could not easily find many working Parental Control stuff for Linux.
