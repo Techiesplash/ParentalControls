@@ -2,4 +2,4 @@
 make
 
 # Install executable
-cp ./parentalgui /usr/bin/parentalgui
+sudo cp ./parentalgui /usr/local/bin/parentalgui

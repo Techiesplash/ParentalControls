@@ -7,75 +7,10 @@
 #endif
 #define FILES_PATH "/"
 #include <string>
-#include <chrono>
-#include <thread>
+#include "window.h"
+#include "interface.h"
 
 using namespace std;
-
-/**
- * @brief Child class for Root permissions warning
- *
- */
-class Rootwarn : public noroot
-{
-    using noroot::noroot;
-    void m_okOnButtonClick(wxCommandEvent &event)
-    {
-        this->Close();
-        exit(1);
-    }
-};
-
-/**
- * @brief Writes a message to the daemon
- *
- * @param name File name to save to
- * @param token What to put in the file
- */
-void WriteMessage(string name, string data = "")
-{
-    remove(string(FILES_PATH + name + ".msg").c_str());
-    puts(string(FILES_PATH + name + ".msg\n").c_str());
-    FILE *fp = fopen(string(FILES_PATH + name + ".msg").c_str(), "w");
-    if (fp != NULL)
-    {
-        fprintf(fp, data.c_str());
-
-        fclose(fp);
-    }
-    else
-    {
-        printf("Failed to open file for writing!\n");
-    }
-}
-
-/**
- * @brief Clear success/failure messages
- *
- */
-void ClearSuccess()
-{
-    remove(string(string(FILES_PATH) + "success.msg").c_str());
-    remove(string(string(FILES_PATH) + "failure.msg").c_str());
-}
-
-bool CheckSuccess()
-{
-    FILE *fp = fopen(string(string(FILES_PATH) + "success.msg").c_str(), "r");
-    if (fp != NULL)
-    {
-        fclose(fp);
-        return true;
-    }
-    fp = fopen(string(string(FILES_PATH) + "failure.msg").c_str(), "r");
-    if (fp != NULL)
-    {
-        fclose(fp);
-        return false;
-    }
-    puts("Did not see any SUCCESS or FAILURE messages: Check daemon?");
-    return false;
-}
 
 /**
  * @brief Loads the contents of a file into a wxListBox
@@ -134,33 +69,6 @@ void SaveListBoxToFile(string file, wxListBox *listBox)
     puts("Failed to open file for wxListBox saving!");
 }
 
-/**
- * @brief Attempt to activate the daemon
- *
- * @return true Activated successfully
- * @return false Failure to activate
- */
-bool Activate()
-{
-    ClearSuccess();
-    WriteMessage("activate");
-    this_thread::sleep_for(chrono::milliseconds(800));
-    return CheckSuccess();
-}
-
-/**
- * @brief Attempt to deactivate the daemon
- *
- * @return true Deactivated successfully
- * @return false Failure to deactivate
- */
-bool Deactivate()
-{
-    ClearSuccess();
-    WriteMessage("deactivate");
-    this_thread::sleep_for(chrono::milliseconds(800));
-    return CheckSuccess();
-}
 
 /**
  * @brief Check if a string is composed solely of whitespace

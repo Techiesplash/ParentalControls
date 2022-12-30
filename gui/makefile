@@ -1,4 +1,4 @@
-source = main.cpp noname.cpp
+source = main.cpp noname.cpp interface.cpp
 
 cc = g++
 

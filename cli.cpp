@@ -1,9 +1,20 @@
+/**
+ * @file cli.cpp
+ * @author Techiesplash (techiesplash137@gmail.com)
+ * @brief Command Line Interface (CLI) program to interface with the Parental Controls
+ * @date 2022-12-30
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <chrono>
 #include <thread>
 #include <string.h>
+#include "func.h"
 
 using namespace std;
 
@@ -18,6 +29,7 @@ About:
     This quickly terminates any program found within a list.
 
     MIT Licensed, by Techiesplash (2022)
+    https://github.com/Techiesplash/ParentalControls
 
 Usage:
     parentalctl disable/enable - Toggle whether the daemon should start activated
@@ -25,20 +37,10 @@ Usage:
     parentalctl show - Display the list of programs to kill
     parentalctl add [program]... - Add program(s) to the list (path or name)
     parentalctl remove [program]... - Remove the following program(s) from the list
+
 )HELP";
 
-bool FileExists(string file)
-{
-    FILE *fp = fopen(string(string("/") + file).c_str(), "r");
-    if (fp)
-    {
-        fclose(fp);
-        return true;
-    }
-    return false;
-}
-
-std::vector<string> killList;
+vector<string> killList;
 
 void SaveKillList()
 {
@@ -62,29 +64,6 @@ void SaveKillList()
     }
 }
 
-void RefreshKillList()
-{
-
-    FILE *fp = fopen(string("/pc.list").c_str(), "r");
-    if (fp != NULL)
-    {
-        static char *line;
-        static size_t len;
-        static ssize_t read;
-
-        killList.clear();
-
-        while ((read = getline(&line, &len, fp)) != -1)
-        {
-            killList.push_back(string(line));
-        }
-
-        fclose(fp);
-
-        return;
-    }
-}
-
 int main(int argc, char **argv)
 {
     // Check for root permissions
@@ -100,14 +79,16 @@ int main(int argc, char **argv)
         exit(0);
     }
 
-    RefreshKillList();
+    killList = LoadKillList();
 
     if (argc >= 2)
     {
+        // ==========================================================HELP
         if (strcmp(argv[1], "help") == 0)
         {
             cout << help << endl;
         }
+        // ==========================================================DISABLE
         else if (strcmp(argv[1], "disable") == 0)
         {
             fp = fopen("/pc.startdisabled", "w");
@@ -120,14 +101,16 @@ int main(int argc, char **argv)
                 cout << "Failed to execute action" << endl;
             }
         }
+        // ==========================================================ENABLE
         else if (strcmp(argv[1], "enable") == 0)
         {
             remove("/pc.startdisabled");
-            if (FileExists("pc.startdisabled"))
+            if (FileExists("/pc.startdisabled"))
             {
                 cout << "Failed to execute action" << endl;
             }
         }
+        // ==========================================================START
         else if (strcmp(argv[1], "start") == 0)
         {
 
@@ -148,6 +131,7 @@ int main(int argc, char **argv)
                 cout << "Failed to execute action" << endl;
             }
         }
+        // ==========================================================STOP
         else if (strcmp(argv[1], "stop") == 0)
         {
 
@@ -168,6 +152,7 @@ int main(int argc, char **argv)
                 cout << "Failed to execute action" << endl;
             }
         }
+        // ==========================================================SHOW
         else if (strcmp(argv[1], "show") == 0)
         {
             if (killList.size() == 0)
@@ -182,6 +167,7 @@ int main(int argc, char **argv)
                 }
             }
         }
+        // ==========================================================REMOVE
         else if (strcmp(argv[1], "remove") == 0)
         {
             for (int i = 0; i < (int)killList.size(); i++)
@@ -196,6 +182,7 @@ int main(int argc, char **argv)
             }
             SaveKillList();
         }
+        // ==========================================================ADD
         else if (strcmp(argv[1], "add") == 0)
         {
             for (int i = 2; i < argc; i++)
@@ -215,6 +202,7 @@ int main(int argc, char **argv)
             }
             SaveKillList();
         }
+        // ==========================================================UNKNOWN
         else
         {
             cout << "Unknown command \"" + string(argv[1]) + "\": Type \"parentalctl help\" for help." << endl;
