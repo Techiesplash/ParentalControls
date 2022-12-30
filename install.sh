@@ -2,9 +2,9 @@
 make
 
 # Install
-cp ./parentald /usr/local/bin/parentald
-cp ./parentalctl /usr/bin/parentalctl
-cp ./systemd/parentald.service /etc/systemd/system/parentald.service
-chmod 640 /etc/systemd/system/parentald.service
-systemctl daemon-reload
-systemctl enable --now parentald.service
+sudo cp ./parentald /usr/local/bin/parentald
+sudo cp ./parentalctl /usr/local/bin/parentalctl
+sudocp ./init/systemd/parentald.service /etc/systemd/system/parentald.service
+sudo chmod 640 /etc/systemd/system/parentald.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now parentald.service
