@@ -25,8 +25,8 @@
 #include <wx/gbsizer.h>
 #include <wx/statbox.h>
 #include <wx/frame.h>
-#include <wx/dialog.h>
 #include <wx/stattext.h>
+#include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -60,44 +60,21 @@ class MainWindow : public wxFrame
 
 	public:
 
-		MainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Parental Controls Prototype Interface"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 494,353 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		MainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Parental Controls GUI"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 494,353 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~MainWindow();
 
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class PasswordWindow
+/// Class NoRootPopup
 ///////////////////////////////////////////////////////////////////////////////
-class PasswordWindow : public wxDialog
+class NoRootPopup : public wxDialog
 {
 	private:
 
 	protected:
-		wxTextCtrl* m_passtext;
-		wxButton* m_passwordConfirm;
-
-		// Virtual event handlers, override them in your derived class
-		virtual void m_passConfirmOnClick( wxCommandEvent& event ) { event.Skip(); }
-
-
-	public:
-
-		PasswordWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Password"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 117,101 ), long style = wxDEFAULT_DIALOG_STYLE );
-
-		~PasswordWindow();
-
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class noroot
-///////////////////////////////////////////////////////////////////////////////
-class noroot : public wxDialog
-{
-	private:
-
-	protected:
-		wxStaticText* m_staticText1;
+		wxStaticText* NoRootText;
 		wxButton* m_ok;
 
 		// Virtual event handlers, override them in your derived class
@@ -106,9 +83,9 @@ class noroot : public wxDialog
 
 	public:
 
-		noroot( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Insufficient Permissions"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
+		NoRootPopup( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Insufficient Permissions"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
 
-		~noroot();
+		~NoRootPopup();
 
 };
 

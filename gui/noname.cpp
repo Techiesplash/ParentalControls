@@ -48,10 +48,10 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	gbSizer2->SetFlexibleDirection( wxBOTH );
 	gbSizer2->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
-	m_activate = new wxButton( sbSizer3->GetStaticBox(), wxID_ANY, wxT("Activate"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_activate = new wxButton( sbSizer3->GetStaticBox(), wxID_ANY, wxT("Start"), wxDefaultPosition, wxDefaultSize, 0 );
 	gbSizer2->Add( m_activate, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	m_deactivate = new wxButton( sbSizer3->GetStaticBox(), wxID_ANY, wxT("Deactivate"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_deactivate = new wxButton( sbSizer3->GetStaticBox(), wxID_ANY, wxT("Stop"), wxDefaultPosition, wxDefaultSize, 0 );
 	gbSizer2->Add( m_deactivate, wxGBPosition( 0, 1 ), wxGBSpan( 1, 1 ), wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5 );
 
 	m_toggleStartup = new wxButton( sbSizer3->GetStaticBox(), wxID_ANY, wxT("Auto-Enable"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -87,46 +87,16 @@ MainWindow::~MainWindow()
 
 }
 
-PasswordWindow::PasswordWindow( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
-{
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-
-	wxBoxSizer* bSizer7;
-	bSizer7 = new wxBoxSizer( wxVERTICAL );
-
-	m_passtext = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer7->Add( m_passtext, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-
-	m_passwordConfirm = new wxButton( this, wxID_ANY, wxT("Confirm"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer7->Add( m_passwordConfirm, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-
-
-	this->SetSizer( bSizer7 );
-	this->Layout();
-
-	this->Centre( wxBOTH );
-
-	// Connect Events
-	m_passwordConfirm->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( PasswordWindow::m_passConfirmOnClick ), NULL, this );
-}
-
-PasswordWindow::~PasswordWindow()
-{
-	// Disconnect Events
-	m_passwordConfirm->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( PasswordWindow::m_passConfirmOnClick ), NULL, this );
-
-}
-
-noroot::noroot( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+NoRootPopup::NoRootPopup( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
 	wxBoxSizer* bSizer3;
 	bSizer3 = new wxBoxSizer( wxVERTICAL );
 
-	m_staticText1 = new wxStaticText( this, wxID_ANY, wxT("This program requires Root permissions to do things. Please relaunch this as root and try again."), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
-	m_staticText1->Wrap( 250 );
-	bSizer3->Add( m_staticText1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	NoRootText = new wxStaticText( this, wxID_ANY, wxT("This program requires Root permissions to do things. Please try launching this as root."), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+	NoRootText->Wrap( 250 );
+	bSizer3->Add( NoRootText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	m_ok = new wxButton( this, wxID_ANY, wxT("Exit"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer3->Add( m_ok, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
@@ -139,12 +109,12 @@ noroot::noroot( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	this->Centre( wxBOTH );
 
 	// Connect Events
-	m_ok->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( noroot::m_okOnButtonClick ), NULL, this );
+	m_ok->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( NoRootPopup::m_okOnButtonClick ), NULL, this );
 }
 
-noroot::~noroot()
+NoRootPopup::~NoRootPopup()
 {
 	// Disconnect Events
-	m_ok->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( noroot::m_okOnButtonClick ), NULL, this );
+	m_ok->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( NoRootPopup::m_okOnButtonClick ), NULL, this );
 
 }

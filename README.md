@@ -22,8 +22,19 @@ It includes the code for a systemd daemon, a CLI interface, and a GUI interface 
 <h2>Setup</h2>
 Download the source code, then run "./install.sh" in the folder to install the CLI interface and the daemon. 
 <br />
-Additionally, you can run "./install.sh" in the GUI folder to install the GUI interface. Please ensure you have the required "wxWidgets" libraries.
-<br /><br />
+
+### GUI
+Additionally, you can run "./install.sh" in the GUI folder to install the GUI interface. Please ensure you have the required "wxWidgets" libraries:
+
+<br />
+
+### Arch Linux:
+Install either the ```wxwidgets-gtk3``` or the ```wxwidgets-qt5``` package, depending on your preferences.
+
+### Debian / Ubuntu
+I believe you should install the ```libwxgtk3.0-dev``` package... Need to make sure though. Will do this soon
+
+<br />
 <h2>Usage</h2>
 Use with the CLI using parentalctl, use with the GUI using parentalgui. The service name is "parentald.service".
 <br /><br />

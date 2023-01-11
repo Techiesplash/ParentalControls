@@ -1,15 +1,15 @@
 #pragma once
 
 #include "noname.h"
-#include "interface.h"
+#include "../reusable/reusable.h"
 
 /**
  * @brief Child class for Root permissions warning
  *
  */
-class Rootwarn : public noroot
+class Rootwarn : public NoRootPopup
 {
-    using noroot::noroot;
+    using NoRootPopup::NoRootPopup;
     void m_okOnButtonClick(wxCommandEvent &event)
     {
         this->Close();

@@ -20,7 +20,7 @@
 #include <sstream>
 #include <fstream>
 #include <string.h>
-#include "func.h"
+#include "../reusable/reusable.h"
 
 using namespace std;
 
@@ -37,22 +37,12 @@ bool active = DEFAULT_ACTIVE;
  */
 bool CheckForFile(string filename)
 {
-    // Try to open the file
-    FILE *fp = fopen(filename.c_str(), "r");
-    if (fp != NULL)
+    if (FileExists(filename))
     {
-        // If the file could be opened
-        // Close it
-        fclose(fp);
 
         remove(filename.c_str());
 
-        // And respond with a success message
-        FILE *fr = fopen("/success.msg", "w");
-        if (fr)
-        {
-            fclose(fr);
-        }
+        CreateFile("/success.msg");
         return true;
     }
     // If the file could not be opened
@@ -146,15 +136,10 @@ int main()
     // Main Loop
     while (true)
     {
-        if (Criteria())
-        {
-            KillProgramsTick();
-            //  printf("on\n");
-        }
-        else
-        {
-            // printf("off\n");
-        }
+        
+        KillProgramsTick();
+        
+        // Wait for 0.75 seconds every tick
         this_thread::sleep_for(chrono::milliseconds(750));
     }
     return 0;

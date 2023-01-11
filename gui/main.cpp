@@ -8,7 +8,7 @@
 #define FILES_PATH "/"
 #include <string>
 #include "window.h"
-#include "interface.h"
+#include "../reusable/reusable.h"
 
 using namespace std;
 
