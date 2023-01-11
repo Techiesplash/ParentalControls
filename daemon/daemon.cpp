@@ -136,9 +136,9 @@ int main()
     // Main Loop
     while (true)
     {
-        
+
         KillProgramsTick();
-        
+
         // Wait for 0.75 seconds every tick
         this_thread::sleep_for(chrono::milliseconds(750));
     }

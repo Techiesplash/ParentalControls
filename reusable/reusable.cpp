@@ -95,7 +95,7 @@ std::vector<std::string> LoadKillList()
 
         while ((read = getline(&line, &len, fp)) != -1)
         {
-            if (line != "")
+            if (std::string(line).find_first_not_of(' ') != std::string::npos)
             {
                 vec.push_back(std::string(line));
             }

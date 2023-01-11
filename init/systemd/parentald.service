@@ -10,6 +10,7 @@ ExecStart=/usr/local/bin/parentald
 Restart=on-failure
 RestartSec=10
 KillMode=process
+Group=root
 
 [Install]
 WantedBy=multi-user.target
