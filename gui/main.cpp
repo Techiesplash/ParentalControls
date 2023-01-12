@@ -24,13 +24,16 @@ void LoadListboxFromFile(string file, wxListBox *listBox)
     static size_t len;
     static ssize_t read;
     listBox->Clear();
-    FILE *fp = fopen(string(string(FILES_PATH) + file).c_str(), "r");
+    FILE *fp = fopen(file.c_str(), "r");
     if (fp != NULL)
     {
 
         while ((read = getline(&line, &len, fp)) != -1)
         {
-            listBox->Append(wxString(line));
+            if (std::string(line).find_first_not_of(' ') != std::string::npos)
+            {
+                listBox->Append(wxString(line));
+            }
         }
 
         fclose(fp);
@@ -51,8 +54,8 @@ void SaveListBoxToFile(string file, wxListBox *listBox)
     static char *line;
     static size_t len;
     static ssize_t read;
-    remove(string(string(FILES_PATH) + file).c_str());
-    FILE *fp = fopen(string(string(FILES_PATH) + file).c_str(), "w");
+    remove(file.c_str());
+    FILE *fp = fopen(file.c_str(), "w");
     if (fp != NULL)
     {
 
@@ -112,7 +115,7 @@ public:
             if (!exists)
             {
                 this->m_listBox4->Append(this->m_textinput->GetValue());
-                SaveListBoxToFile("pc.list", this->m_listBox4);
+                SaveListBoxToFile("/pc.list", this->m_listBox4);
             }
         }
     }
@@ -137,7 +140,7 @@ public:
     }
     void m_syncOnButtonClick(wxCommandEvent &event)
     {
-        FILE *fp = fopen(string(string(FILES_PATH) + "refresh.msg").c_str(), "w");
+        FILE *fp = fopen("/refresh.msg", "w");
         if (fp != NULL)
         {
             fclose(fp);
@@ -154,18 +157,18 @@ public:
     }
     void m_toggleStartupOnButtonClick(wxCommandEvent &event)
     {
-        FILE *fp = fopen(string(string(FILES_PATH) + "pc.startdisabled").c_str(), "r");
+        FILE *fp = fopen("/pc.startdisabled", "r");
         if (fp)
         {
             // Enable at startup
             fclose(fp);
-            remove(string(string(FILES_PATH) + "pc.startdisabled").c_str());
+            remove("/pc.startdisabled");
             this->m_toggleStartup->SetLabel(wxT("Auto-Disable"));
         }
         else
         {
             // Disable at startup
-            fp = fopen(string(string(FILES_PATH) + "pc.startdisabled").c_str(), "w");
+            fp = fopen("/pc.startdisabled", "w");
             fclose(fp);
             this->m_toggleStartup->SetLabel(wxT("Auto-Enable"));
         }
@@ -178,7 +181,7 @@ public:
 
     void Init()
     {
-        FILE *fp = fopen(string(string(FILES_PATH) + "pc.startdisabled").c_str(), "r");
+        FILE *fp = fopen("/pc.startdisabled", "r");
         if (fp)
         {
             fclose(fp);
@@ -209,7 +212,7 @@ public:
     {
 
         // Run an access test to make sure we can access the files
-        FILE *test = fopen(string(string(FILES_PATH) + "access.test").c_str(), "w");
+        FILE *test = fopen("/access.test", "w");
         if (test == NULL)
         {
             Rootwarn *warn = new Rootwarn(NULL);
@@ -220,13 +223,13 @@ public:
         {
             // Clean up from the access test
             fclose(test);
-            remove(string(string(FILES_PATH) + "access.test").c_str());
+            remove(s"/access.test");
 
             frame = new Main(NULL);
             frame->Init();
 
             frame->Show(true);
-            LoadListboxFromFile("pc.list", frame->GetKillList());
+            LoadListboxFromFile("/pc.list", frame->GetKillList());
         }
         return true;
     }
