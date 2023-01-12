@@ -19,32 +19,99 @@ This automatically closes programs off a list. Meant to enforce on those without
 <br />
 It includes the code for a systemd daemon, a CLI interface, and a GUI interface using wxWidgets.
 <br /><br />
-<h2>Setup</h2>
-Download the source code, then run "./install.sh" in the folder to install the CLI interface and the daemon. 
-<br />
 
-### GUI
-Additionally, you can run "./install.sh" in the GUI folder to install the GUI interface. Please ensure you have the required "wxWidgets" libraries:
-
+<h2>Requirements</h2>
+The GUI interface is made using WxWidgets, which must be installed in order to get it working:
 <br />
 
 ### Arch Linux:
-Install either the ```wxwidgets-gtk3``` or the ```wxwidgets-qt5``` package, depending on your preferences.
+```
+sudo pacman -S wxwidgets-gtk3
+```
+Alternatively,
+```
+sudo pacman -S wxwidgets-qt5
+```
 
 ### Debian / Ubuntu
-I believe you should install the ```libwxgtk3.0-dev``` package... Need to make sure though. Will do this soon
+```
+sudo apt-get install libwxgtk3.0-dev
+```
+<h2>Installing</h2>
+To download the source, run this in the terminal (Or download the zip file)
 
+```
+git clone https://github.com/Techiesplash/ParentalControls
+```
+then run (Sudo is required):
+```
+sudo ./install.sh
+```
+This script will compile the both the daemon and the CLI interface and install them for you.
+
+To install the GUI interface, run:
+```
+sudo ./install_gui.sh
+```
+This will compile and install the GUI.
 <br />
+
 <h2>Usage</h2>
-Use with the CLI using parentalctl, use with the GUI using parentalgui. The service name is "parentald.service".
-<br /><br />
-parentalctl disable/enable - Toggle whether the daemon should start activated<br />
-parentalctl start/stop - Toggle whether or not the daemon will currently enforce<br />
-parentalctl show - Display the list of programs to kill<br />
-parentalctl add [program]... - Add program(s) to the list (path or name)<br />
-parentalctl remove [program]... - Remove the following program(s) from the list
-<br /><br />
+The CLI interface can be used with the command:
+
+```
+sudo parentalctl
+```
+The GUI interface can be launched with:
+```
+sudo parentalgui
+```
+And the daemon that runs in the background is ```parentald```.
+
+### Examples
+Turn off at startup:
+```
+sudo parentalctl disable
+```
+Turn off right now (Not permanent)
+```
+sudo parentactl stop
+```
+Show the list of programs to kill:
+```
+sudo parentalctl show
+```
+Add ```exampleprogram``` to the list:
+```
+sudo parentalctl add exampleprogram
+```
+Add ```exampleprogram``` to the list:
+```
+sudo parentalctl add /program/path/exampleprogram
+```
+Add multiple programs to the list:
+```
+sudo parentalctl add example1 example2
+```
+Remove a program from the list
+```
+sudo parentalctl remove example1 example2
+```
+The CLI interface contains a help menu. It provides the available commands to use.
 <h2>Warning</h2>
 Please be careful of what you add to the list of programs to kill. You may cause problems if you add certain programs. I am not responsible for any problems that may occur due to this.
 <br /><br />
-<h3>Anyone is free to use, copy, modify, merge, publish, distribute, sublicense, or and/or sell copies of the software*.</h3>
+
+## Built With
+
+* [WxFormBuilder](https://github.com/wxFormBuilder/wxFormBuilder) - Used to make the GUI
+
+## Authors
+
+* **Techiesplash** - *Initial work* - [Techiesplash](https://github.com/Techiesplash)
+
+See also the list of [contributors](https://github.com/Techiesplash/ParentalControls/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
