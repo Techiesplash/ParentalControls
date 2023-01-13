@@ -134,7 +134,7 @@ int main()
     }
 
     // Main Loop
-    while (true)
+    while (Criteria())
     {
 
         KillProgramsTick();
