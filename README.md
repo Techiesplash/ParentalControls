@@ -81,11 +81,11 @@ Show the list of programs to kill:
 ```
 sudo parentalctl show
 ```
-Add ```exampleprogram``` to the list:
+Add ```exampleprogram``` to the list by name:
 ```
 sudo parentalctl add exampleprogram
 ```
-Add ```exampleprogram``` to the list:
+Add ```exampleprogram``` to the list by path:
 ```
 sudo parentalctl add /program/path/exampleprogram
 ```
