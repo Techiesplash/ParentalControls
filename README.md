@@ -35,7 +35,7 @@ sudo pacman -S wxwidgets-qt5
 
 ### Debian / Ubuntu
 ```
-sudo apt-get install libwxgtk3.0-dev
+sudo apt-get install libwxgtk3.0-gtk3-dev
 ```
 <h2>Installing</h2>
 To download the source, run this in the terminal (Or download the zip file)
