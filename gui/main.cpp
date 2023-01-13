@@ -223,7 +223,7 @@ public:
         {
             // Clean up from the access test
             fclose(test);
-            remove(s"/access.test");
+            remove("/access.test");
 
             frame = new Main(NULL);
             frame->Init();
