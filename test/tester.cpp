@@ -148,12 +148,11 @@ int main()
     system("killall testdummyprogram");
     StopDaemon();
     system("cp ./pc.list /pc.list");
+    remove("./pc.list");
 
     // Start it again in case it was already installed
     system("systemctl start parentald");
+    
 
-    tPrintTotalScore();
-
-
-    return 0;
+    return !tPrintTotalScore();
 }
