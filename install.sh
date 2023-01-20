@@ -8,3 +8,6 @@ sudo cp ./init/systemd/parentald.service /etc/systemd/system/parentald.service
 sudo chmod 640 /etc/systemd/system/parentald.service
 sudo systemctl daemon-reload
 sudo systemctl enable --now parentald.service
+
+# Cleanup
+make clean

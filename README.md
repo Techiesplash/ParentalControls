@@ -98,6 +98,10 @@ Remove a program from the list
 sudo parentalctl remove example1 example2
 ```
 The CLI interface contains a help menu. It provides the available commands to use.
+
+### Testing
+Run ```sudo ./runtests.sh``` and it should perform a bunch of tests on the daemon to make sure it works.
+
 <h2>Warning</h2>
 Please be careful of what you add to the list of programs to kill. You may cause problems if you add certain programs. I am not responsible for any problems that may occur due to this.
 <br /><br />
