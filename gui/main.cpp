@@ -55,7 +55,7 @@ class Main : public MainWindow
 public:
     void m_addOnButtonClick(wxCommandEvent &event)
     {
-        AddProgram *a = new AddProgram(NULL);
+        AddWindow *a = new AddWindow(NULL);
 
         a->Show(true);
     }
@@ -75,15 +75,16 @@ public:
         if (res != wxNOT_FOUND)
         {
             this->m_listBox4->Delete(res);
-            SaveListBoxToFile("pc.list", mainWindowPtr->m_listBox4);
+            SaveListBoxToFile("/pc.list", this->m_listBox4);
             RefreshKillList();
         }
+
     }
 
     void UpdateButtonStates()
     {
         int status = GetDaemonStatus();
-        if(status == DaemonStatus::OFF || status == DaemonStatus::ERROR)
+        if (status == DaemonStatus::OFF || status == DaemonStatus::ERROR)
         {
             this->m_deactivate->Enable(false);
             this->m_activate->Enable(true);
@@ -184,7 +185,7 @@ public:
             frame->Show(true);
             LoadListboxFromFile("/pc.list", frame->GetKillList());
         }
-        
+
         return true;
     }
 };

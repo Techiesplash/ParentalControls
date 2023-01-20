@@ -55,7 +55,7 @@ class AddWindow : public AddProgram
 
     
     using AddProgram::AddProgram;
-    void m_addOnButtonClick(wxCommandEvent &event)
+    void m_addOnButtonClick(wxCommandEvent &event) override
     {
         if (mainWindowPtr)
         {
@@ -77,5 +77,6 @@ class AddWindow : public AddProgram
                 }
             }
         }
+        this->Close();
     }
 };

@@ -97,6 +97,10 @@ class AddProgram : public wxDialog
 		wxTextCtrl* inputprogram;
 		wxButton* m_add;
 
+		// Virtual event handlers, override them in your derived class
+		virtual void m_addOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+
+
 	public:
 
 		AddProgram( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Add Program"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
