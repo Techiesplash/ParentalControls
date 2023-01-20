@@ -43,53 +43,6 @@ void LoadListboxFromFile(string file, wxListBox *listBox)
 
     puts("Failed to open file for wxListBox loading!");
 }
-/**
- * @brief Saves the contents of a wxListBox to a file
- *
- * @param file The file to save to
- * @param listBox The list box to save
- */
-void SaveListBoxToFile(string file, wxListBox *listBox)
-{
-    static char *line;
-    static size_t len;
-    static ssize_t read;
-    remove(file.c_str());
-    FILE *fp = fopen(file.c_str(), "w");
-    if (fp != NULL)
-    {
-
-        for (int i = 0; i < listBox->GetCount(); i++)
-        {
-            fputs(listBox->GetString(i).mb_str(), fp);
-        }
-
-        fclose(fp);
-
-        return;
-    }
-
-    puts("Failed to open file for wxListBox saving!");
-}
-
-
-/**
- * @brief Check if a string is composed solely of whitespace
- *
- * @param s String to check
- * @return true The string is empty
- * @return false The string is not empty
- */
-bool isStrEmpty(const char *s)
-{
-    while (*s != '\0')
-    {
-        if (!isspace((unsigned char)*s))
-            return false;
-        s++;
-    }
-    return true;
-}
 
 /**
  * @brief Main window child class
@@ -102,22 +55,9 @@ class Main : public MainWindow
 public:
     void m_addOnButtonClick(wxCommandEvent &event)
     {
-        if (!isStrEmpty(this->m_textinput->GetValue().mb_str()))
-        {
-            bool exists = false;
-            for (int i = 0; i < this->m_listBox4->GetCount(); i++)
-            {
-                if (this->m_textinput->GetValue() == this->m_listBox4->GetString(i))
-                {
-                    exists = true;
-                }
-            }
-            if (!exists)
-            {
-                this->m_listBox4->Append(this->m_textinput->GetValue());
-                SaveListBoxToFile("/pc.list", this->m_listBox4);
-            }
-        }
+        AddProgram *a = new AddProgram(NULL);
+
+        a->Show(true);
     }
     void m_removeOnButtonClick(wxCommandEvent &event)
     {
@@ -135,25 +75,35 @@ public:
         if (res != wxNOT_FOUND)
         {
             this->m_listBox4->Delete(res);
-            SaveListBoxToFile("pc.list", this->m_listBox4);
+            SaveListBoxToFile("pc.list", mainWindowPtr->m_listBox4);
+            RefreshKillList();
         }
     }
-    void m_syncOnButtonClick(wxCommandEvent &event)
+
+    void UpdateButtonStates()
     {
-        FILE *fp = fopen("/refresh.msg", "w");
-        if (fp != NULL)
+        int status = GetDaemonStatus();
+        if(status == DaemonStatus::OFF || status == DaemonStatus::ERROR)
         {
-            fclose(fp);
+            this->m_deactivate->Enable(false);
+            this->m_activate->Enable(true);
+        }
+        else
+        {
+            this->m_deactivate->Enable(true);
+            this->m_activate->Enable(false);
         }
     }
+
     void m_activateOnButtonClick(wxCommandEvent &event)
     {
-
         Activate();
+        UpdateButtonStates();
     }
     void m_deactivateOnButtonClick(wxCommandEvent &event)
     {
         Deactivate();
+        UpdateButtonStates();
     }
     void m_toggleStartupOnButtonClick(wxCommandEvent &event)
     {
@@ -173,9 +123,10 @@ public:
             this->m_toggleStartup->SetLabel(wxT("Auto-Enable"));
         }
     }
-    
+
     void OnClose()
     {
+        mainWindowPtr = nullptr;
         exit(0);
     }
 
@@ -191,6 +142,8 @@ public:
         {
             this->m_toggleStartup->SetLabel(wxT("Auto-Disable"));
         }
+        UpdateButtonStates();
+        mainWindowPtr = this;
     }
 
     wxListBox *GetKillList()
@@ -231,6 +184,7 @@ public:
             frame->Show(true);
             LoadListboxFromFile("/pc.list", frame->GetKillList());
         }
+        
         return true;
     }
 };

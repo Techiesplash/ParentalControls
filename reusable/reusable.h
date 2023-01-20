@@ -20,6 +20,11 @@
  */
 extern bool FileExists(std::string file);
 
+enum DaemonStatus {
+    ON,
+    OFF,
+    ERROR
+} ;
 
 /**
  * @brief Refresh the list of programs to kill
@@ -72,3 +77,25 @@ extern bool Deactivate();
  * @param filename The name and path of the file
  */
 extern void CreateFile(std::string filename);
+
+/**
+ * @brief Reload the kill list
+ * 
+ */
+extern void RefreshKillList();
+
+/**
+ * @brief Get the current status of the daemon
+ * 
+ * @return int ON, OFF, or ERROR
+ */
+extern int GetDaemonStatus();
+
+/**
+ * @brief Check if a string is composed solely of whitespace
+ *
+ * @param s String to check
+ * @return true The string is empty
+ * @return false The string is not empty
+ */
+extern bool isStrEmpty(const char *s);
