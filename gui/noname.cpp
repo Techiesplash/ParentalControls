@@ -132,8 +132,14 @@ AddProgram::AddProgram( wxWindow* parent, wxWindowID id, const wxString& title, 
 	bSizer3->Fit( this );
 
 	this->Centre( wxBOTH );
+
+	// Connect Events
+	m_add->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( AddProgram::m_addOnButtonClick ), NULL, this );
 }
 
 AddProgram::~AddProgram()
 {
+	// Disconnect Events
+	m_add->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( AddProgram::m_addOnButtonClick ), NULL, this );
+
 }
