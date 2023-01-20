@@ -14,7 +14,8 @@ rm testdummyprogram
 rm tester
 
 echo $testResults
-if [ $testResults == 0 ]
+success=0
+if [ "$testResults" -eq "$success" ]
 then
     # Compile
     make
