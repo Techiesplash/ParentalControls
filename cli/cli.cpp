@@ -56,7 +56,7 @@ void SaveKillList()
         for (int i = 0; i < (int)killList.size(); i++)
         {
             fputs(string(killList[i]).c_str(), fp);
-            fputs("\r\n", fp);
+            fputs("\n", fp);
         }
 
         fclose(fp);

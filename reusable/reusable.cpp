@@ -99,9 +99,7 @@ std::vector<std::string> LoadKillList()
             if (std::string::npos && std::string(line).find_first_not_of('\r') != std::string::npos && std::string(line).find_first_not_of(' ') != std::string::npos && std::string(line).find_first_not_of('\n') != std::string::npos)
             {
                 std::string l = std::string(line);
-                l.erase(std::remove(l.begin(), l.end(), '\n'), l.cend());
-                l.erase(std::remove(l.begin(), l.end(), '\r'), l.cend());
-                
+
                 vec.push_back(l);
             }
         }
