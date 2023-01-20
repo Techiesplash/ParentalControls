@@ -67,8 +67,30 @@ bool Criteria()
         // Deactivate message received
         active = false;
     }
+    if (CheckForFile("/requeststatus.msg"))
+    {
+        // Interface requests current status
+        if (active)
+        {
+            FILE *fp = fopen("/statuson.msg", "w");
+            if (fp)
+            {
+                fclose(fp);
+            }
+        }
+        else
+        {
+            FILE *fp = fopen("/statusoff.msg", "w");
+            if (fp)
+            {
+                fclose(fp);
+            }
+        }
+        remove("/requeststatus.msg");
+    }
     if (!USE_ONLY_BUILTIN_LIST)
     {
+        // Refresh the list
         if (FileExists("/refresh.msg"))
         {
             // Refresh message received
@@ -134,11 +156,12 @@ int main()
     }
 
     // Main Loop
-    while (Criteria())
+    while (true)
     {
-
-        KillProgramsTick();
-
+        if (Criteria())
+        {
+            KillProgramsTick();
+        }
         // Wait for 0.75 seconds every tick
         this_thread::sleep_for(chrono::milliseconds(750));
     }

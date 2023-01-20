@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
+// C++ code generated with wxFormBuilder (version 3.10.1-254-gc2ef7767)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -25,17 +25,11 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxBoxSizer* bSizer6;
 	bSizer6 = new wxBoxSizer( wxHORIZONTAL );
 
-	m_textinput = new wxTextCtrl( m_panel6, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer6->Add( m_textinput, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-
 	m_add = new wxButton( m_panel6, wxID_ANY, wxT("Add"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer6->Add( m_add, 0, wxALL, 5 );
+	bSizer6->Add( m_add, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 	m_remove = new wxButton( m_panel6, wxID_ANY, wxT("Remove"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer6->Add( m_remove, 0, wxALL, 5 );
-
-	m_sync = new wxButton( m_panel6, wxID_ANY, wxT("Sync"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer6->Add( m_sync, 0, wxALL, 5 );
+	bSizer6->Add( m_remove, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 
 	m_panel6->SetSizer( bSizer6 );
@@ -69,7 +63,6 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	// Connect Events
 	m_add->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_addOnButtonClick ), NULL, this );
 	m_remove->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_removeOnButtonClick ), NULL, this );
-	m_sync->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_syncOnButtonClick ), NULL, this );
 	m_activate->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_activateOnButtonClick ), NULL, this );
 	m_deactivate->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_deactivateOnButtonClick ), NULL, this );
 	m_toggleStartup->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_toggleStartupOnButtonClick ), NULL, this );
@@ -80,7 +73,6 @@ MainWindow::~MainWindow()
 	// Disconnect Events
 	m_add->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_addOnButtonClick ), NULL, this );
 	m_remove->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_removeOnButtonClick ), NULL, this );
-	m_sync->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_syncOnButtonClick ), NULL, this );
 	m_activate->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_activateOnButtonClick ), NULL, this );
 	m_deactivate->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_deactivateOnButtonClick ), NULL, this );
 	m_toggleStartup->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindow::m_toggleStartupOnButtonClick ), NULL, this );
@@ -98,7 +90,9 @@ NoRootPopup::NoRootPopup( wxWindow* parent, wxWindowID id, const wxString& title
 	NoRootText->Wrap( 250 );
 	bSizer3->Add( NoRootText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	m_ok = new wxButton( this, wxID_ANY, wxT("Exit"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_ok = new wxButton( this, wxID_ANY, wxT("Ok"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	m_ok->SetBitmapPosition( wxBOTTOM );
 	bSizer3->Add( m_ok, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
@@ -117,4 +111,29 @@ NoRootPopup::~NoRootPopup()
 	// Disconnect Events
 	m_ok->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( NoRootPopup::m_okOnButtonClick ), NULL, this );
 
+}
+
+AddProgram::AddProgram( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+
+	wxBoxSizer* bSizer3;
+	bSizer3 = new wxBoxSizer( wxVERTICAL );
+
+	inputprogram = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxPoint( -1,-1 ), wxSize( 200,-1 ), 0 );
+	bSizer3->Add( inputprogram, 0, wxALL, 5 );
+
+	m_add = new wxButton( this, wxID_ANY, wxT("Add"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer3->Add( m_add, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+
+	this->SetSizer( bSizer3 );
+	this->Layout();
+	bSizer3->Fit( this );
+
+	this->Centre( wxBOTH );
+}
+
+AddProgram::~AddProgram()
+{
 }

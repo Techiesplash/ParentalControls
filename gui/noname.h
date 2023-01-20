@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
+// C++ code generated with wxFormBuilder (version 3.10.1-254-gc2ef7767)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -15,7 +15,6 @@
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/textctrl.h>
 #include <wx/button.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
@@ -27,6 +26,7 @@
 #include <wx/frame.h>
 #include <wx/stattext.h>
 #include <wx/dialog.h>
+#include <wx/textctrl.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -39,12 +39,9 @@ class MainWindow : public wxFrame
 	private:
 
 	protected:
-		wxListBox* m_listBox4;
 		wxPanel* m_panel6;
-		wxTextCtrl* m_textinput;
 		wxButton* m_add;
 		wxButton* m_remove;
-		wxButton* m_sync;
 		wxButton* m_activate;
 		wxButton* m_deactivate;
 		wxButton* m_toggleStartup;
@@ -52,15 +49,15 @@ class MainWindow : public wxFrame
 		// Virtual event handlers, override them in your derived class
 		virtual void m_addOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void m_removeOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void m_syncOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void m_activateOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void m_deactivateOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void m_toggleStartupOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
+		wxListBox* m_listBox4;
 
-		MainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Parental Controls GUI"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 494,353 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		MainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Parental Controls GUI"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 494,368 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~MainWindow();
 
@@ -86,6 +83,25 @@ class NoRootPopup : public wxDialog
 		NoRootPopup( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Insufficient Permissions"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
 
 		~NoRootPopup();
+
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class AddProgram
+///////////////////////////////////////////////////////////////////////////////
+class AddProgram : public wxDialog
+{
+	private:
+
+	protected:
+		wxTextCtrl* inputprogram;
+		wxButton* m_add;
+
+	public:
+
+		AddProgram( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Add Program"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
+
+		~AddProgram();
 
 };
 

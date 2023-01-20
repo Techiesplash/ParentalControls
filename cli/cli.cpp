@@ -35,6 +35,7 @@ About:
 Usage:
     parentalctl disable/enable - Toggle whether the daemon should start activated
     parentalctl start/stop - Toggle whether or not the daemon will currently enforce
+    parentalctl status - Shows if the daemon is currently activated
     parentalctl show - Display the list of programs to kill
     parentalctl add [program]... - Add program(s) to the list (path or name)
     parentalctl remove [program]... - Remove the following program(s) from the list
@@ -59,11 +60,7 @@ void SaveKillList()
 
         fclose(fp);
 
-        fp = fopen("/refresh.msg", "w");
-        if (fp)
-        {
-            fclose(fp);
-        }
+        RefreshKillList();
     }
 }
 
@@ -194,6 +191,23 @@ int main(int argc, char **argv)
                 }
             }
             SaveKillList();
+        }
+        // ==========================================================STATUS
+        else if (strcmp(argv[1], "status") == 0)
+        {
+            int status = GetDaemonStatus();
+            if(status == DaemonStatus::OFF)
+            {
+                cout << "Status: OFF" << endl;
+            }
+            else if(status == DaemonStatus::OFF)
+            {
+                cout << "Status: ON" << endl;
+            }
+            else
+            {
+                cout << "Status: Erroneous (Could not get status)" << endl << "Check if the daemon is running? Or if it is even installed?" << endl;
+            }
         }
         // ==========================================================UNKNOWN
         else

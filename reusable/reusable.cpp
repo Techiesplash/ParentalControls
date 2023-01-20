@@ -4,15 +4,14 @@
  * @brief Defines some functions that can be shared between multiple programs
  * @version 0.1
  * @date 2023-01-11
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #include "reusable.h"
 #include <thread>
 #include <chrono>
-
 
 void WriteMessage(std::string name, std::string data)
 {
@@ -109,9 +108,78 @@ std::vector<std::string> LoadKillList()
 
 void CreateFile(std::string filename)
 {
-    FILE* fp = fopen(filename.c_str(), "w");
-    if(fp != NULL)
+    FILE *fp = fopen(filename.c_str(), "w");
+    if (fp != NULL)
     {
         fclose(fp);
     }
+}
+
+void RefreshKillList()
+{
+    FILE *fp = fopen("/refresh.msg", "w");
+    if (fp != NULL)
+    {
+        fclose(fp);
+    }
+}
+
+int GetDaemonStatus()
+{
+    // Create a message to the daemon that we need its status
+    FILE *fp = fopen("/requeststatus.msg", "w");
+    if (fp != NULL)
+    {
+        fclose(fp);
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(800));
+    // Check if it deleted the file
+    fp = fopen("/requeststatus.msg", "r");
+    if(fp)
+    {
+        fclose(fp);
+        remove("/requeststatus.msg");
+        return DaemonStatus::ERROR;
+    }
+    FILE *fp1 = fopen("/statuson.msg", "r");
+    FILE *fp2 = fopen("/statusoff.msg", "r");
+    if(fp1 && !fp2)
+    {
+        fclose(fp1);
+        remove("/statuson.msg");
+        return DaemonStatus::ON;
+    }
+    else if(fp2 && !fp1)
+    {
+        fclose(fp2);
+        remove("/statusoff.msg");
+        return DaemonStatus::OFF;
+    }
+    else
+    {
+        if(fp1)
+        {
+            fclose(fp1);
+        }
+        if(fp2)
+        {
+            fclose(fp1);
+        }
+        remove("/statuson.msg");
+        remove("/statusoff.msg");
+        
+    }
+    return DaemonStatus::ERROR;
+
+}
+
+bool isStrEmpty(const char *s)
+{
+    while (*s != '\0')
+    {
+        if (!isspace((unsigned char)*s))
+            return false;
+        s++;
+    }
+    return true;
 }
