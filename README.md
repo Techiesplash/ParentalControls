@@ -21,22 +21,7 @@ It includes the code for a systemd daemon, a CLI interface, and a GUI interface 
 <br /><br />
 
 <h2>Requirements</h2>
-The GUI interface is made using WxWidgets, which must be installed in order to get it working:
-<br />
-
-### Arch Linux:
-```
-sudo pacman -S wxwidgets-gtk3
-```
-Alternatively,
-```
-sudo pacman -S wxwidgets-qt5
-```
-
-### Debian / Ubuntu
-```
-sudo apt-get install libwxgtk3.0-gtk3-dev
-```
+base-devel or build-essential are needed to make this. Otherwise, nothing else.
 <h2>Installing</h2>
 To download the source, run this in the terminal (Or download the zip file)
 
@@ -61,10 +46,6 @@ The CLI interface can be used with the command:
 
 ```
 sudo parentalctl
-```
-The GUI interface can be launched with:
-```
-sudo parentalgui
 ```
 And the daemon that runs in the background is ```parentald```.
 
@@ -105,10 +86,6 @@ Run ```sudo ./runtests.sh``` and it should perform a bunch of tests on the daemo
 <h2>Warning</h2>
 Please be careful of what you add to the list of programs to kill. You may cause problems if you add certain programs. I am not responsible for any problems that may occur due to this.
 <br /><br />
-
-## Built With
-
-* [WxFormBuilder](https://github.com/wxFormBuilder/wxFormBuilder) - Used to make the GUI
 
 ## Authors
 
