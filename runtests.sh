@@ -6,7 +6,10 @@ mv tester ../tester
 cd ..
 make
 sudo ./tester
-make clean
+result=$?
+
+rm parentald
+rm parentalctl
 
 rm testdummyprogram
 rm tester

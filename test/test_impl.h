@@ -244,11 +244,13 @@ void tRunTests(bool abortOnFail)
 }
 #endif
 
-void tPrintTotalScore()
+bool tPrintTotalScore()
 {
     printf("\nTotal Unit Test Score: \e[1;32m%i\e[0m tests passed, \e[1;31m%i\e[0m failed.\n", totalPass, totalFails);
+    return totalFails == 0;
 }
-void tFinishTest()
+
+bool tFinishTest()
 {
     // Print results
     printf("\nTest %i \"%s\" Results: \e[1;32m%i\e[0m tests passed, \e[1;31m%i\e[0m failed.\n", testCount++, testname, successesInTest, failuresInTest);
@@ -259,4 +261,5 @@ void tFinishTest()
     successesInTest = 0;
     lastTestFailed = false;
     testname = "";
+    return failuresInTest == 0;
 }

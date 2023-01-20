@@ -144,13 +144,13 @@ void tRunTests(bool abortOnFail = true);
  * @brief Finishes a unit test (Not to be used inside a UnitField)
  *
  */
-void tFinishTest();
+bool tFinishTest();
 
 /**
  * @brief Prints totals
  *
  */
-void tPrintTotalScore();
+bool tPrintTotalScore();
 
 #include "test_impl.h"
 #endif
