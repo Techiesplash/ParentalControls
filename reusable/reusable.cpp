@@ -12,7 +12,9 @@
 #include "reusable.h"
 #include <thread>
 #include <chrono>
+#include <iostream>
 
+#include <algorithm>
 void WriteMessage(std::string name, std::string data)
 {
     remove(std::string(name + ".msg").c_str());
@@ -94,9 +96,13 @@ std::vector<std::string> LoadKillList()
 
         while ((read = getline(&line, &len, fp)) != -1)
         {
-            if (std::string(line).find_first_not_of(' ') != std::string::npos)
+            if (std::string::npos && std::string(line).find_first_not_of('\r') != std::string::npos && std::string(line).find_first_not_of(' ') != std::string::npos && std::string(line).find_first_not_of('\n') != std::string::npos)
             {
-                vec.push_back(std::string(line));
+                std::string l = std::string(line);
+                l.erase(std::remove(l.begin(), l.end(), '\n'), l.cend());
+                l.erase(std::remove(l.begin(), l.end(), '\r'), l.cend());
+                
+                vec.push_back(l);
             }
         }
 
